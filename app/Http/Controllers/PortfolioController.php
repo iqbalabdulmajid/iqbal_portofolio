@@ -15,7 +15,6 @@ class PortfolioController extends Controller
         // Mengambil 2-3 proyek terbaru untuk ditampilkan di area "Blog" (sebagai Featured)
         $featuredProjects = \App\Models\Project::where('is_published', true)
             ->latest()
-            ->take(2)
             ->get();
 
         $projects = \App\Models\Project::where('is_published', true)->get();
