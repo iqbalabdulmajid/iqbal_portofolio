@@ -22,11 +22,12 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        // comment bagian auth
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            // ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -52,7 +53,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                // Authenticate::class,
             ]);
     }
 }
