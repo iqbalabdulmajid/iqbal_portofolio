@@ -111,62 +111,68 @@
     </section> <!-- end of section -->
 
     <section class="section" id="blog">
-    <div class="container text-center">
-        <p class="section-subtitle">Want to see more?</p>
-        <h6 class="section-title mb-6">Featured Projects</h6>
+        <div class="container text-center">
+            <p class="section-subtitle">Want to see more?</p>
+            <h6 class="section-title mb-6">Featured Projects</h6>
 
-        {{-- Container Slide --}}
-        <div class="d-flex flex-nowrap overflow-auto pb-4" style="gap: 20px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
-            @foreach ($featuredProjects as $item)
-                {{-- Box diperkecil dengan min-width agar tidak gepeng saat slide --}}
-                <div class="blog-card border-0 shadow-sm" style="min-width: 300px; max-width: 320px; flex: 0 0 auto;">
-                    <div class="blog-card-header">
-                        <img src="{{ asset('storage/' . $item->image) }}"
-                             class="blog-card-img"
-                             style="height: 180px; object-fit: cover;"
-                             alt="{{ $item->title }}">
-                    </div>
-                    <div class="blog-card-body p-3">
-                        <h6 class="blog-card-title mt-0" style="font-size: 1.1rem;">{{ $item->title }}</h6>
-
-                        <p class="blog-card-caption mb-2">
-                            <span class="badge badge-primary font-weight-normal">
-                                {{ $item->tech_stack }}
-                            </span>
-                        </p>
-
-                        <div class="mb-3 text-muted" style="font-size: 0.9rem; line-height: 1.4;">
-                            {!! Str::limit(strip_tags($item->description), 80) !!}
+            {{-- Container Slide --}}
+            <div class="d-flex flex-nowrap overflow-auto pb-4"
+                style="gap: 20px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
+                @foreach ($featuredProjects as $item)
+                    {{-- Box diperkecil dengan min-width agar tidak gepeng saat slide --}}
+                    <div class="blog-card border-0 shadow-sm" style="min-width: 300px; max-width: 320px; flex: 0 0 auto;">
+                        <div class="blog-card-header">
+                            <img src="{{ asset('storage/' . $item->image) }}" class="blog-card-img"
+                                style="height: 180px; object-fit: cover;" alt="{{ $item->title }}">
                         </div>
+                        <div class="blog-card-body p-3">
+                            <h6 class="blog-card-title mt-0" style="font-size: 1.1rem;">{{ $item->title }}</h6>
 
-                        <a href="{{ route('project.show', $item->slug) }}" class="blog-card-link" style="font-size: 0.85rem;">
-                            Read more <i class="ti-angle-double-right"></i>
-                        </a>
+                            <p class="blog-card-caption mb-2">
+                                <span class="badge badge-primary font-weight-normal">
+                                    {{ $item->tech_stack }}
+                                </span>
+                            </p>
+
+                            <div class="mb-3 text-muted" style="font-size: 0.9rem; height: 40px; overflow: hidden;">
+                                {!! Str::limit(strip_tags($item->description), 60) !!}
+                            </div>
+
+                            {{-- Gunakan class btn agar benar-benar terlihat seperti tombol --}}
+                            <a href="{{ url('/project/' . $item->slug) }}"
+                                class="btn btn-primary btn-sm btn-block shadow-sm">
+                                Detail Project <i class="ti-angle-double-right"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
+            </div>
             @endforeach
         </div>
 
         {{-- Indikator Swipe (Opsional) --}}
-        @if($featuredProjects->count() > 3)
-            <p class="text-muted mt-2"><small><i class="ti-hand-point-left"></i> Scroll or swipe to see more <i class="ti-hand-point-right"></i></small></p>
+        @if ($featuredProjects->count() > 3)
+            <p class="text-muted mt-2"><small><i class="ti-hand-point-left"></i> Scroll or swipe to see more <i
+                        class="ti-hand-point-right"></i></small></p>
         @endif
-    </div>
-</section>
+        </div>
+    </section>
 
-<style>
-    /* Menghilangkan scrollbar tapi tetap bisa di-scroll (agar rapi) */
-    .flex-nowrap::-webkit-scrollbar {
-        height: 5px;
-    }
-    .flex-nowrap::-webkit-scrollbar-thumb {
-        background: #695aa6; /* warna primary template meyawo */
-        border-radius: 10px;
-    }
-    .flex-nowrap::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-</style>
+    <style>
+        /* Menghilangkan scrollbar tapi tetap bisa di-scroll (agar rapi) */
+        .flex-nowrap::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .flex-nowrap::-webkit-scrollbar-thumb {
+            background: #695aa6;
+            /* warna primary template meyawo */
+            border-radius: 10px;
+        }
+
+        .flex-nowrap::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+    </style>
 
     <!-- contact section -->
     <section class="section" id="contact">
