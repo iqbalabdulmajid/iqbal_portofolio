@@ -110,69 +110,74 @@
         </div> <!-- end of container -->
     </section> <!-- end of section -->
 
-    <section class="section" id="blog">
-        <div class="container text-center">
-            <p class="section-subtitle">Want to see more?</p>
-            <h6 class="section-title mb-6">Featured Projects</h6>
+<section class="section" id="blog">
+    <div class="container text-center">
+        <p class="section-subtitle">Want to see more?</p>
+        <h6 class="section-title mb-6">Featured Projects</h6>
 
-            {{-- Container Slide --}}
-            <div class="d-flex flex-nowrap overflow-auto pb-4"
-                style="gap: 20px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
-                @foreach ($featuredProjects as $item)
-                    {{-- Box diperkecil dengan min-width agar tidak gepeng saat slide --}}
-                    <div class="blog-card border-0 shadow-sm" style="min-width: 300px; max-width: 320px; flex: 0 0 auto;">
-                        <div class="blog-card-header">
-                            <img src="{{ asset('storage/' . $item->image) }}" class="blog-card-img"
-                                style="height: 180px; object-fit: cover;" alt="{{ $item->title }}">
-                        </div>
-                        <div class="blog-card-body p-3">
-                            <h6 class="blog-card-title mt-0" style="font-size: 1.1rem;">{{ $item->title }}</h6>
+        {{-- Container Slide: d-flex dan overflow-auto adalah kunci slide --}}
+        <div class="d-flex flex-nowrap overflow-auto pb-4 custom-scrollbar" style="gap: 20px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
+            @foreach ($featuredProjects as $item)
+                {{-- Card Box --}}
+                <div class="card border-0 shadow-sm" style="min-width: 280px; max-width: 300px; flex: 0 0 auto; border-radius: 15px; overflow: hidden;">
 
-                            <p class="blog-card-caption mb-2">
-                                <span class="badge badge-primary font-weight-normal">
-                                    {{ $item->tech_stack }}
-                                </span>
-                            </p>
-
-                            <div class="mb-3 text-muted" style="font-size: 0.9rem; height: 40px; overflow: hidden;">
-                                {!! Str::limit(strip_tags($item->description), 60) !!}
-                            </div>
-
-                            {{-- Gunakan class btn agar benar-benar terlihat seperti tombol --}}
-                            <a href="{{ url('/project/' . $item->slug) }}"
-                                class="btn btn-primary btn-sm btn-block shadow-sm">
-                                Detail Project <i class="ti-angle-double-right"></i>
-                            </a>
-                        </div>
+                    {{-- Bagian Gambar --}}
+                    <div style="height: 160px; overflow: hidden;">
+                        <img src="{{ asset('storage/' . $item->image) }}"
+                             class="card-img-top"
+                             style="width: 100%; height: 100%; object-fit: cover;"
+                             alt="{{ $item->title }}">
                     </div>
-            </div>
+
+                    {{-- Bagian Isi Card --}}
+                    <div class="card-body p-3 text-left">
+                        <h6 class="card-title mb-1" style="font-weight: bold; color: #333;">
+                            {{ $item->title }}
+                        </h6>
+
+                        <div class="mb-2">
+                            <span class="badge badge-primary" style="font-size: 0.7rem; font-weight: 400; background-color: #695aa6;">
+                                {{ $item->tech_stack }}
+                            </span>
+                        </div>
+
+                        <div class="card-text text-muted mb-3" style="font-size: 0.85rem; height: 40px; overflow: hidden;">
+                            {!! Str::limit(strip_tags($item->description), 70) !!}
+                        </div>
+
+                        {{-- Tombol Detail --}}
+                        <a href="{{ route('project.show', $item->slug) }}"
+                           class="btn btn-sm btn-block text-white"
+                           style="background-color: #695aa6; border-radius: 8px; font-size: 0.8rem;">
+                           View Details <i class="ti-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
             @endforeach
         </div>
 
-        {{-- Indikator Swipe (Opsional) --}}
-        @if ($featuredProjects->count() > 3)
-            <p class="text-muted mt-2"><small><i class="ti-hand-point-left"></i> Scroll or swipe to see more <i
-                        class="ti-hand-point-right"></i></small></p>
+        {{-- Petunjuk jika ada banyak proyek --}}
+        @if($featuredProjects->count() > 3)
+            <div class="mt-3 d-md-none">
+                <small class="text-muted"><i class="ti-arrow-left"></i> Swipe to see more <i class="ti-arrow-right"></i></small>
+            </div>
         @endif
-        </div>
-    </section>
+    </div>
+</section>
 
-    <style>
-        /* Menghilangkan scrollbar tapi tetap bisa di-scroll (agar rapi) */
-        .flex-nowrap::-webkit-scrollbar {
-            height: 5px;
-        }
-
-        .flex-nowrap::-webkit-scrollbar-thumb {
-            background: #695aa6;
-            /* warna primary template meyawo */
-            border-radius: 10px;
-        }
-
-        .flex-nowrap::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-    </style>
+<style>
+    /* Menghilangkan scrollbar tapi tetap bisa di-scroll (agar rapi) */
+    .flex-nowrap::-webkit-scrollbar {
+        height: 5px;
+    }
+    .flex-nowrap::-webkit-scrollbar-thumb {
+        background: #695aa6; /* warna primary template meyawo */
+        border-radius: 10px;
+    }
+    .flex-nowrap::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+</style>
 
     <!-- contact section -->
     <section class="section" id="contact">
